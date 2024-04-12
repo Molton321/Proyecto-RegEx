@@ -1,8 +1,10 @@
+import random
 from graphviz import Digraph
-import re
 
-class AutomataDeterminista:
+
+class Automata:
     def __init__(self, estados, alfabeto, transiciones, estado_inicial, estados_aceptacion):
+        self.id = random.randint(1,1000)
         self.estados = estados
         self.alfabeto = alfabeto
         self.transiciones = transiciones
@@ -34,10 +36,10 @@ class AutomataDeterminista:
             origen, simbolo = transicion
             dot.edge(origen, destino, label=simbolo)
 
-        dot.render('automata', format='png', cleanup=True)
-        print("Se ha generado el archivo 'automata.png'.")
+        dot.render(f'./Images/automata{self.id}', format='png', cleanup=True)
+        print(f"Se ha generado el archivo 'automata{self.id}.png'.")
 
-def leer_dfa_desde_entrada():
+def leer_dfa():
     # Definir detalles del DFA
     estados = {'q0', 'q1', 'q2'}
     alfabeto = {'0', '1'}
@@ -53,14 +55,18 @@ def leer_dfa_desde_entrada():
         ('q2', '0'): 'q2',
     }
 
-    return AutomataDeterminista(estados, alfabeto, transiciones, estado_inicial, estados_aceptacion)
+    return Automata(estados, alfabeto, transiciones, estado_inicial, estados_aceptacion)
 
-def main():
-    # Leer DFA desde la entrada del usuario
-    dfa = leer_dfa_desde_entrada()
+def leer_dfa_desde_entrada(nombre_archivo):
+    with open(nombre_archivo, 'r') as file:
+        estados = set(file.readline().strip().split(','))
+        alfabeto = set(file.readline().strip().split(','))
+        estado_inicial = file.readline().strip()
+        estados_aceptacion = set(file.readline().strip().split(','))
 
-    # Graficar el autómata
-    dfa.graficar()
+        transiciones = {}
+        for line in file:
+            origen, simbolo, destino = line.strip().split(',')
+            transiciones[(origen, simbolo)] = destino
 
-if __name__ == "__main__":
-    main()
+    return Automata(estados, alfabeto, transiciones, estado_inicial, estados_aceptacion)
