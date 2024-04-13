@@ -1,12 +1,16 @@
+import regex
 import Modelos.Automata as Automata
 
-def main():
-    print("Hello, World!")
-    # Crear un autómata
-    a = Automata.leer_dfa_desde_entrada('./Data/dfa.txt')
-    b = Automata.leer_dfa()
-    a.graficar()
-    b.graficar()
-
+#casos de prueba 
+# a = Automata.build_automaton_from_regex("ab+|b+a*")
+# a = Automata.build_automaton_from_regex("ab+"
+# a = Automata.build_automaton_from_regex("b+a*")
+# a = Automata.build_automaton_from_regex("abb*")
+# a = Automata.build_automaton_from_regex("ab|b+a+b*")
+# Ejemplo de uso
 if __name__ == "__main__":
-    main()
+    # no uso de () en la expresión regular
+    regex = input("Ingrese una expresión regular: ")
+    a = Automata.build_automaton_from_regex(regex)
+    a.graficar()
+
