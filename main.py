@@ -1,4 +1,3 @@
-import regex
 import Modelos.Automata as Automata
 
 #casos de prueba 
@@ -12,5 +11,7 @@ if __name__ == "__main__":
     # no uso de () en la expresión regular
     regex = input("Ingrese una expresión regular: ")
     a = Automata.build_automaton_from_regex(regex)
+    # graficar automata desde archivo
+    #a = Automata.leer_dfa_desde_entrada("./Data/dfa.txt")
     a.graficar()
 

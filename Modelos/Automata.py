@@ -133,6 +133,6 @@ def build_automaton_from_regex(regex):
     transitions: {transitions}
     initial_state: {initial_state}
     accepting_states: {accepting_states}
-''')
+    ''')
 
     return Automata(states, alphabet, transitions, initial_state, accepting_states)
